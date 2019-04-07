@@ -1,6 +1,6 @@
-defmodule Web.GraphQL.Resolvers.Hero do
+defmodule Web.GraphQL.Resolvers.Character do
   @moduledoc """
-  Functions to resolve Hero queries and fields.
+  Functions to resolve Character queries and fields.
   """
 
   @spec hero(map(), map(), Absinthe.Resolution.t()) :: {:ok, map()}

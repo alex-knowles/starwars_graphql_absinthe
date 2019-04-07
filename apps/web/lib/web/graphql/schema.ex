@@ -4,11 +4,11 @@ defmodule Web.GraphQL.Schema do
   """
   use Absinthe.Schema
 
-  alias Web.GraphQL.Resolvers.Hero, as: HeroResolver
+  alias Web.GraphQL.Resolvers.Character, as: CharacterResolver
 
   query do
     field :hero, :droid do
-      resolve(&HeroResolver.hero/3)
+      resolve(&CharacterResolver.hero/3)
     end
   end
 
