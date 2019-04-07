@@ -16,7 +16,7 @@ defmodule Web.GraphQL.Schema.CharacterTypes do
     field(:friends, list_of(:droid))
 
     @desc "Which movies the droid appears in."
-    field(:appearsIn, list_of(:episode))
+    field(:appears_in, list_of(:episode))
 
     @desc "Construction date and the name of the designer."
     field(:secret_backstory, :string)
@@ -37,7 +37,7 @@ defmodule Web.GraphQL.Schema.CharacterTypes do
     field(:friends, list_of(:human))
 
     @desc "Which movies the human appears in."
-    field(:appearsIn, list_of(:episode))
+    field(:appears_in, list_of(:episode))
 
     @desc "Where are they from and how they came to be who they are."
     field(:secret_backstory, :string)
