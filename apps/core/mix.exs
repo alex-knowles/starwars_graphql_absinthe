@@ -12,7 +12,9 @@ defmodule Core.MixProject do
       elixir: "~> 1.8",
       dialyzer: [ignore_warnings: "../../.dialyzer-ignore-warnings"],
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      aliases: aliases(),
+      deps: deps(),
+      preferred_cli_env: [all_checks: :test]
     ]
   end
 
@@ -25,5 +27,17 @@ defmodule Core.MixProject do
 
   defp deps do
     []
+  end
+
+  defp aliases do
+    [
+      all_checks: [
+        "compile --force --warnings-as-errors",
+        "credo --strict",
+        "format --check-formatted",
+        "test",
+        "dialyzer"
+      ]
+    ]
   end
 end
