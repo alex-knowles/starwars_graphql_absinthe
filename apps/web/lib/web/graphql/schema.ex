@@ -11,4 +11,11 @@ defmodule Web.GraphQL.Schema do
       resolve(&HeroResolver.hero/3)
     end
   end
+
+  @desc "One of the films in the Star Wars Trilogy."
+  enum :episode do
+    value(:newhope)
+    value(:empire)
+    value(:jedi)
+  end
 end
