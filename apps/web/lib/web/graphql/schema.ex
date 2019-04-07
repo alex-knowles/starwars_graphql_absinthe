@@ -7,7 +7,7 @@ defmodule Web.GraphQL.Schema do
   alias Web.GraphQL.Resolvers.Hero, as: HeroResolver
 
   query do
-    field :hero, :string do
+    field :hero, :droid do
       resolve(&HeroResolver.hero/3)
     end
   end
