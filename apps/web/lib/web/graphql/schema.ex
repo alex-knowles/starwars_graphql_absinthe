@@ -9,7 +9,7 @@ defmodule Web.GraphQL.Schema do
   import_types(__MODULE__.CharacterTypes)
 
   query do
-    field :hero, :droid do
+    field :hero, :character do
       resolve(&CharacterResolver.hero/3)
     end
   end
