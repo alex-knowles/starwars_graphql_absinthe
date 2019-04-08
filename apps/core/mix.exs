@@ -26,7 +26,9 @@ defmodule Core.MixProject do
   end
 
   defp deps do
-    []
+    [
+      {:dataloader, "~> 1.0"}
+    ]
   end
 
   defp aliases do
