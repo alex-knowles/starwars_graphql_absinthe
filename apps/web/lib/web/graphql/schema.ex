@@ -36,8 +36,13 @@ defmodule Web.GraphQL.Schema do
 
   @desc "One of the films in the Star Wars Trilogy."
   enum :episode do
+    @desc "Released in 1977."
     value(:newhope)
+
+    @desc "Released in 1980."
     value(:empire)
+
+    @desc "Released in 1983."
     value(:jedi)
   end
 end
