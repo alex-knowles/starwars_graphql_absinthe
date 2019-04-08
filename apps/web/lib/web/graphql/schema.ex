@@ -24,6 +24,14 @@ defmodule Web.GraphQL.Schema do
 
       resolve(&CharacterResolver.human/3)
     end
+
+    @desc "Return a droid Star Wars character."
+    field :droid, :droid do
+      @desc "ID of the droid"
+      arg(:id, non_null(:id))
+
+      resolve(&CharacterResolver.droid/3)
+    end
   end
 
   @desc "One of the films in the Star Wars Trilogy."
