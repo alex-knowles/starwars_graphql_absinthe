@@ -26,7 +26,9 @@ defmodule Core.MixProject do
   end
 
   defp deps do
-    []
+    [
+      {:dataloader, "~> 1.0", git: "git@github.com:alex-knowles/dataloader.git", branch: "issue_74"}
+    ]
   end
 
   defp aliases do
