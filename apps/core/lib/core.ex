@@ -36,4 +36,15 @@ defmodule Core do
       _ -> nil
     end
   end
+
+  @doc """
+  Returns a droid character from Star Wars.
+  """
+  @spec droid_by_id(String.t()) :: map() | nil
+  def droid_by_id(id) do
+    case Repo.character_by_id(id) do
+      %{character_type: :droid} = droid -> droid
+      _ -> nil
+    end
+  end
 end
