@@ -17,6 +17,11 @@ defmodule Core.Repo do
     {:reply, reply, state}
   end
 
+  def handle_call({:character, ids}, _, state) when is_list(ids) do
+    reply = Enum.map(ids, &get_in(state, [:characters, &1]))
+    {:reply, reply, state}
+  end
+
   @spec init_state :: map()
   defp init_state do
     %{
@@ -42,4 +47,13 @@ defmodule Core.Repo do
   @spec character_by_id(String.t()) :: map() | nil
   def character_by_id(id) when is_binary(id),
     do: GenServer.call(__MODULE__, {:character, id})
+
+  @doc """
+  Returns a list of Star Wars characters given a list of IDs.
+
+  If no characters match, an empty list is returned.
+  """
+  @spec characters_by_id([String.t()]) :: [map()]
+  def characters_by_id(ids) when is_list(ids),
+    do: GenServer.call(__MODULE__, {:character, ids})
 end

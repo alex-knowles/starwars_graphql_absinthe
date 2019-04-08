@@ -47,4 +47,12 @@ defmodule Core do
       _ -> nil
     end
   end
+
+  @doc """
+  Return a batch of Star Wars Characters.
+
+  Given a list of IDs, returns a list of Characters that match.
+  """
+  @spec characters_by_id([String.t()]) :: [map()]
+  def characters_by_id(_ids), do: []
 end
