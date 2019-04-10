@@ -4,6 +4,8 @@ defmodule Web.GraphQL.Schema.CharacterTypes do
   """
   use Absinthe.Schema.Notation
 
+  alias Web.GraphQL.Resolvers.Character, as: CharacterResolver
+
   @desc "A character in the Star Wars Trilogy"
   interface :character do
     @desc "The ID of the character."
@@ -62,7 +64,9 @@ defmodule Web.GraphQL.Schema.CharacterTypes do
     field(:name, :string)
 
     @desc "The friends of the human, or an empty list if they have none."
-    field(:friends, list_of(:character))
+    field :friends, list_of(:character) do
+      resolve(&CharacterResolver.friends_for_human/3)
+    end
 
     @desc "Which movies the human appears in."
     field(:appears_in, list_of(:episode))
