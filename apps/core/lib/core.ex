@@ -4,6 +4,7 @@ defmodule Core do
   """
 
   alias Core.Repo
+  alias Dataloader.KV, as: DataloaderKV
 
   @luke_id "1000"
   @artoo_id "2001"
@@ -59,5 +60,31 @@ defmodule Core do
     |> Enum.uniq()
     |> Repo.characters_by_id()
     |> Enum.reject(&is_nil/1)
+  end
+
+  @doc """
+  Returns an interface for loading Core data via Dataloader.
+
+  Batches:
+
+    * `:character_for_id` -- expects a character `id` field an an item key
+      and returns a single character map that matches it
+
+  """
+  def dataloader_source, do: DataloaderKV.new(&load/2)
+
+  #
+  # Loads Core data at behest of `Dataloader.KV`.
+  #
+  @spec load(atom() | {atom(), map()}, MapSet.t()) :: map()
+  defp load(batchname, item_keys)
+
+  defp load(:character_by_id, character_ids), do: load({:character_by_id, %{}}, character_ids)
+
+  defp load({:character_by_id, _args}, character_ids) do
+    character_ids
+    |> MapSet.to_list()
+    |> characters_by_id()
+    |> Enum.into(%{}, &{&1.id, &1})
   end
 end
