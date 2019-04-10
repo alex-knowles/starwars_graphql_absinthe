@@ -14,7 +14,7 @@ defmodule Web.Router do
   scope "/" do
     pipe_through :api
 
-    forward "/api", Absinthe.Plug, schema: Schema
+    forward "/graphql", Absinthe.Plug, schema: Schema
 
     forward "/graphiql", Absinthe.Plug.GraphiQL, schema: Schema
   end
