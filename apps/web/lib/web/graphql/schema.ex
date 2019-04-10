@@ -4,6 +4,9 @@ defmodule Web.GraphQL.Schema do
   """
   use Absinthe.Schema
 
+  alias Absinthe.Middleware.Dataloader, as: DataloaderMiddleware
+  alias Absinthe.Plugin
+
   alias Web.GraphQL.Resolvers.Character, as: CharacterResolver
 
   import_types(__MODULE__.CharacterTypes)
@@ -44,5 +47,25 @@ defmodule Web.GraphQL.Schema do
 
     @desc "Released in 1983."
     value(:jedi)
+  end
+
+  @doc """
+  An `Absinthe.Schema` callback that allows implementors to modify context.
+
+  The default callback is overridden in order to add a `:loader` for resolvers
+  to access.
+  """
+  @impl Absinthe.Schema
+  def context(context) do
+    loader = Dataloader.add_source(Dataloader.new(), Core, Core.dataloader_source())
+    Map.put(context, :loader, loader)
+  end
+
+  @doc """
+  An `Absinthe.Schema` callback for adding non-default plugins to Absinthe.
+  """
+  @impl Absinthe.Schema
+  def plugins do
+    [DataloaderMiddleware] ++ Plugin.defaults()
   end
 end
