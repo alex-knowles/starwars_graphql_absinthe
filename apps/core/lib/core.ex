@@ -4,6 +4,7 @@ defmodule Core do
   """
 
   alias Core.Repo
+  alias Dataloader.KV, as: DataloaderKV
 
   @luke_id "1000"
   @artoo_id "2001"
@@ -59,5 +60,47 @@ defmodule Core do
     |> Enum.uniq()
     |> Repo.characters_by_id()
     |> Enum.reject(&is_nil/1)
+  end
+
+  @doc """
+  Returns an interface for loading Core data via Dataloader.
+
+  Batches:
+
+    * `:friends_for_character` -- expects a character map as an item key
+       and returns a list of character maps that match the key's `:friend_ids`
+
+  """
+  def dataloader_source, do: DataloaderKV.new(&load/2)
+
+  #
+  # Loads Core data at behest of `Dataloader.KV`.
+  #
+  @spec load({atom(), map()}, MapSet.t()) :: map()
+  defp load(batchname_and_args_tuple, item_keys)
+
+  defp load(:friends_for_character, characters),
+    do: load({:friends_for_character, %{}}, characters)
+
+  defp load({:friends_for_character, _args}, characters) do
+    friend_map =
+      characters
+      |> MapSet.to_list()
+      |> Enum.flat_map(&Map.get(&1, :friend_ids, []))
+      |> characters_by_id()
+      |> Enum.into(%{}, &{&1.id, &1})
+
+    Enum.into(characters, %{}, fn
+      %{friend_ids: friend_ids} = character ->
+        friends =
+          friend_ids
+          |> Enum.map(&Map.get(friend_map, &1))
+          |> Enum.reject(&is_nil/1)
+
+        {character, friends}
+
+      character ->
+        {character, []}
+    end)
   end
 end
