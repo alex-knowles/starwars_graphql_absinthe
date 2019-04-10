@@ -42,7 +42,7 @@ defmodule Web.GraphQL.Schema.CharacterTypes do
 
     @desc "The friends of the droid, or an empty list if they have none."
     field :friends, list_of(:character) do
-      resolve(&CharacterResolver.friends_for_character/3)
+      resolve(&CharacterResolver.friends_for_droid/3)
     end
 
     @desc "Which movies the droid appears in."

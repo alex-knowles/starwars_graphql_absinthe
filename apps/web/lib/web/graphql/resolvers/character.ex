@@ -30,7 +30,7 @@ defmodule Web.GraphQL.Resolvers.Character do
   @doc """
   Resolves the 'friends' field for a given character.
 
-  This is a naive implementation!
+  This is a naive implementation! Oh dear!
   """
   @spec friends_for_human(map(), map(), Absinthe.Resolution.t()) :: {:ok, map() | nil}
   def friends_for_human(parent, args, resolution)
@@ -40,9 +40,15 @@ defmodule Web.GraphQL.Resolvers.Character do
     {:ok, friends}
   end
 
-  def friends_for_character(parent, args, resolution)
+  @doc """
+  Resolves the 'friends' field for a given character.
 
-  def friends_for_character(character, _, %{context: %{loader: loader}}) do
+  This is the Dataloader version. Beep boop.
+  """
+  @spec friends_for_droid(map(), map(), Absinthe.Resolution.t()) :: {:ok, map() | nil}
+  def friends_for_droid(parent, args, resolution)
+
+  def friends_for_droid(character, _, %{context: %{loader: loader}}) do
     loader
     |> Dataloader.load(Core, :friends_for_character, character)
     |> on_load(fn loader ->
