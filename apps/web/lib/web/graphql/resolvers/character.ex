@@ -21,6 +21,13 @@ defmodule Web.GraphQL.Resolvers.Character do
   def human(_, %{id: id}, _), do: {:ok, Core.human_by_id(id)}
 
   @doc """
+  Resolver for the 'droid' query.
+  """
+  @spec droid(map(), map(), Absinthe.Resolution.t()) :: {:ok, map() | nil}
+  def droid(parent, args, resolution)
+  def droid(_, %{id: id}, _), do: {:ok, Core.droid_by_id(id)}
+
+  @doc """
   Resolves the 'friends' field for a given character.
 
   This is a naive implementation!
@@ -32,13 +39,6 @@ defmodule Web.GraphQL.Resolvers.Character do
     friends = Core.characters_by_id(friend_ids)
     {:ok, friends}
   end
-
-  @doc """
-  Resolver for the 'droid' query.
-  """
-  @spec droid(map(), map(), Absinthe.Resolution.t()) :: {:ok, map() | nil}
-  def droid(parent, args, resolution)
-  def droid(_, %{id: id}, _), do: {:ok, Core.droid_by_id(id)}
 
   def friends_for_character(parent, args, resolution)
 
