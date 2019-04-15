@@ -12,13 +12,13 @@ defmodule Core.Repo do
   @impl GenServer
   def handle_call(request, from, state)
 
-  def handle_call({:character, id}, _, state) when is_binary(id) do
-    reply = get_in(state, [:characters, id])
+  def handle_call({collection_key, id}, _, state) when is_binary(id) do
+    reply = get_in(state, [collection_key, id])
     {:reply, reply, state}
   end
 
-  def handle_call({:character, ids}, _, state) when is_list(ids) do
-    reply = Enum.map(ids, &get_in(state, [:characters, &1]))
+  def handle_call({collection_key, ids}, _, state) when is_list(ids) do
+    reply = Enum.map(ids, &get_in(state, [collection_key, &1]))
     {:reply, reply, state}
   end
 
@@ -49,7 +49,7 @@ defmodule Core.Repo do
   """
   @spec character_by_id(String.t()) :: map() | nil
   def character_by_id(id) when is_binary(id),
-    do: GenServer.call(__MODULE__, {:character, id})
+    do: GenServer.call(__MODULE__, {:characters, id})
 
   @doc """
   Returns a list of Star Wars characters given a list of IDs.
@@ -58,5 +58,5 @@ defmodule Core.Repo do
   """
   @spec characters_by_id([String.t()]) :: [map()]
   def characters_by_id(ids) when is_list(ids),
-    do: GenServer.call(__MODULE__, {:character, ids})
+    do: GenServer.call(__MODULE__, {:characters, ids})
 end
