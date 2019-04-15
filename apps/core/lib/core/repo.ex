@@ -4,7 +4,7 @@ defmodule Core.Repo do
   """
   use GenServer
 
-  alias Core.Repo.Characters
+  alias Core.Repo.{Characters, Starships}
 
   @impl GenServer
   def init(_init_arg), do: {:ok, init_state()}
@@ -26,7 +26,7 @@ defmodule Core.Repo do
   defp init_state do
     %{
       characters: Enum.into(Characters.init(), %{}, &map_by_id/1),
-      starships: %{},
+      starships: Enum.into(Starships.init(), %{}, &map_by_id/1),
       reviews: %{}
     }
   end
