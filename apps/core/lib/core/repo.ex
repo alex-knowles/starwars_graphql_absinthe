@@ -25,11 +25,14 @@ defmodule Core.Repo do
   @spec init_state :: map()
   defp init_state do
     %{
-      characters: Characters.init() |> Enum.into(%{}, &{&1.id, &1}),
+      characters: Enum.into(Characters.init(), %{}, &map_by_id/1),
       starships: %{},
       reviews: %{}
     }
   end
+
+  @spec map_by_id(map()) :: {any(), map()}
+  defp map_by_id(%{id: id} = data), do: {id, data}
 
   ### Client API
 
