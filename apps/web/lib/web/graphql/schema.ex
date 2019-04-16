@@ -49,6 +49,15 @@ defmodule Web.GraphQL.Schema do
     value(:jedi)
   end
 
+  @desc "Units of height"
+  enum :length_unit do
+    @desc "The standard unit around the world"
+    value(:meter)
+
+    @desc "Primarily used in the United States"
+    value(:foot)
+  end
+
   @doc """
   An `Absinthe.Schema` callback that allows implementors to modify context.
 
