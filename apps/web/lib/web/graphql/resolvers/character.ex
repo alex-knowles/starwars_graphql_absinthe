@@ -32,6 +32,7 @@ defmodule Web.GraphQL.Resolvers.Character do
 
   For any Character type -- Human or Droid.
   """
+  @spec friends_for_character(map(), map(), Absinthe.Resolution.t()) :: tuple()
   def friends_for_character(parent, args, resolution)
 
   def friends_for_character(character, _, %{context: %{loader: loader}}) do
