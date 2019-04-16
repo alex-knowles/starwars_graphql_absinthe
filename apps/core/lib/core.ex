@@ -55,10 +55,21 @@ defmodule Core do
   Given a list of IDs, returns a list of Characters that match.
   """
   @spec characters_by_id([String.t()]) :: [map()]
-  def characters_by_id(ids) do
+  def characters_by_id(ids), do: collection_from_ids(ids, &Repo.characters_by_id/1)
+
+  @doc """
+  Return a batch of starships from Star Wars.
+
+  Given a list of IDs, returns a list of matching Starships.
+  """
+  @spec starships_by_id([String.t()]) :: [map()]
+  def starships_by_id(ids), do: collection_from_ids(ids, &Repo.starships_by_id/1)
+
+  @spec collection_from_ids([String.t()], ([String.t()] -> [map() | nil])) :: [map()]
+  defp collection_from_ids(ids, repo_fun) do
     ids
     |> Enum.uniq()
-    |> Repo.characters_by_id()
+    |> repo_fun.()
     |> Enum.reject(&is_nil/1)
   end
 
