@@ -78,8 +78,10 @@ defmodule Core do
 
   Batches:
 
-    * `:character_for_id` -- expects a character `id` field an an item key
+    * `:character_by_id` -- expects a character `id` field and an item key
       and returns a single character map that matches it
+    * `:starship_by_id` -- expects a starship `id` field and an item key
+      and returns a single starship map that matches it
 
   """
   def dataloader_source, do: DataloaderKV.new(&load/2)
@@ -89,13 +91,16 @@ defmodule Core do
   #
   @spec load(atom() | {atom(), map()}, MapSet.t()) :: map()
   defp load(batchname, item_keys)
-
   defp load(:character_by_id, character_ids), do: load({:character_by_id, %{}}, character_ids)
+  defp load({:character_by_id, _args}, character_ids), do: fetch_batch(character_ids, &characters_by_id/1)
+  defp load(:starship_by_id, starship_ids), do: load({:starship_by_id, %{}}, starship_ids)
+  defp load({:starship_by_id, _args}, starship_ids), do: fetch_batch(starship_ids, &starships_by_id/1)
 
-  defp load({:character_by_id, _args}, character_ids) do
-    character_ids
+  @spec fetch_batch(MapSet.t(), ([String.t()] -> [map()])) :: map()
+  defp fetch_batch(ids, collection_fun) do
+    ids
     |> MapSet.to_list()
-    |> characters_by_id()
+    |> collection_fun.()
     |> Enum.into(%{}, &{&1.id, &1})
   end
 end
