@@ -59,4 +59,22 @@ defmodule Core.Repo do
   @spec characters_by_id([String.t()]) :: [map()]
   def characters_by_id(ids) when is_list(ids),
     do: GenServer.call(__MODULE__, {:characters, ids})
+
+  @doc """
+  Returns a starship given a unique ID -- such as "3000".
+
+  If no starship matches, `nil` is returned.
+  """
+  @spec starship_by_id(String.t()) :: map() | nil
+  def starship_by_id(id) when is_binary(id),
+    do: GenServer.call(__MODULE__, {:starships, id})
+
+  @doc """
+  Returns a list of starships given a list of IDs.
+
+  If no starships match, an empty list is returned.
+  """
+  @spec starships_by_id([String.t()]) :: [map()]
+  def starships_by_id(ids) when is_list(ids),
+    do: GenServer.call(__MODULE__, {:starships, ids})
 end
