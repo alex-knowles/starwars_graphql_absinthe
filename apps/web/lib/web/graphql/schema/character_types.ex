@@ -78,5 +78,10 @@ defmodule Web.GraphQL.Schema.CharacterTypes do
 
     @desc "The home planet of the human, of null if unknown."
     field(:home_planet, :string)
+
+    @desc "A list of starships this person has piloted, or an empty list if none."
+    field :starships, list_of(:starship) do
+      resolve(&CharacterResolver.starships_for_human/3)
+    end
   end
 end
