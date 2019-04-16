@@ -43,4 +43,19 @@ defmodule Web.GraphQL.Resolvers.Character do
       {:ok, friends}
     end)
   end
+
+  @doc """
+  Resolver for the 'starships' field.
+  """
+  @spec starships_for_human(map(), map(), Absinthe.Resolution.t()) :: tuple()
+  def starships_for_human(parent, args, resolution)
+
+  def starships_for_human(human, _, %{context: %{loader: loader}}) do
+    loader
+    |> Dataloader.load_many(Core, :starship_by_id, human.starship_ids)
+    |> on_load(fn loader ->
+      starships = Dataloader.get_many(loader, Core, :starship_by_id, human.starship_ids)
+      {:ok, starships}
+    end)
+  end
 end
