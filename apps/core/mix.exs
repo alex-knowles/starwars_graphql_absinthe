@@ -27,7 +27,8 @@ defmodule Core.MixProject do
 
   defp deps do
     [
-      {:dataloader, "~> 1.0", git: "git@github.com:alex-knowles/dataloader.git", branch: "issue_74"}
+      {:dataloader, "~> 1.0",
+       git: "git@github.com:absinthe-graphql/dataloader.git", ref: "4c4d53610aeca7561636ba6c97f1c5f633462ed4"}
     ]
   end
 
