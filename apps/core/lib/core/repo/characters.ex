@@ -15,7 +15,8 @@ defmodule Core.Repo.Characters do
         appears_in: [:newhope, :empire, :jedi],
         friend_ids: ["1002", "1003", "2000", "2001"],
         character_type: :human,
-        home_planet: "Tatooine"
+        home_planet: "Tatooine",
+        starship_ids: ["3001", "3003"]
       },
       %{
         id: "1001",
@@ -23,14 +24,16 @@ defmodule Core.Repo.Characters do
         appears_in: [:newhope, :empire, :jedi],
         friend_ids: ["1004"],
         character_type: :human,
-        home_planet: "Tatooine"
+        home_planet: "Tatooine",
+        starship_ids: ["3002"]
       },
       %{
         id: "1002",
         name: "Han Solo",
         appears_in: [:newhope, :empire, :jedi],
         friend_ids: ["1000", "1003", "2001"],
-        character_type: :human
+        character_type: :human,
+        starship_ids: ["3000", "3003"]
       },
       %{
         id: "1003",
@@ -38,14 +41,16 @@ defmodule Core.Repo.Characters do
         appears_in: [:newhope, :empire, :jedi],
         friend_ids: ["1000", "1002", "2000", "2001"],
         character_type: :human,
-        home_planet: "Alderaan"
+        home_planet: "Alderaan",
+        starship_ids: []
       },
       %{
         id: "1004",
         name: "Wilhuff Tarkin",
         appears_in: [:newhope],
         friend_ids: ["1001"],
-        character_type: :human
+        character_type: :human,
+        starship_ids: []
       },
       %{
         id: "2000",
