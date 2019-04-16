@@ -58,6 +58,19 @@ defmodule Web.GraphQL.Schema do
     value(:foot)
   end
 
+  object :starship do
+    @desc "The ID of the starship"
+    field(:id, non_null(:id))
+
+    @desc "The name of the starship"
+    field(:name, non_null(:string))
+
+    @desc "Length of the starship, along the longest axis"
+    field :length, :float do
+      arg(:unit, :length_unit)
+    end
+  end
+
   @doc """
   An `Absinthe.Schema` callback that allows implementors to modify context.
 
