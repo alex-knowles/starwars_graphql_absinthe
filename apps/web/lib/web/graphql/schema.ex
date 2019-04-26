@@ -8,6 +8,7 @@ defmodule Web.GraphQL.Schema do
   alias Absinthe.Plugin
 
   alias Web.GraphQL.Resolvers.Character, as: CharacterResolver
+  alias Web.GraphQL.Resolvers.Starship, as: StarshipResolver
 
   import_types(__MODULE__.CharacterTypes)
 
@@ -34,6 +35,14 @@ defmodule Web.GraphQL.Schema do
       arg(:id, non_null(:id))
 
       resolve(&CharacterResolver.droid/3)
+    end
+
+    @desc "Return a starship from Star Wars."
+    field :starship, :starship do
+      @desc "ID of the starship"
+      arg(:id, non_null(:id))
+
+      resolve(&StarshipResolver.starship/2)
     end
   end
 
