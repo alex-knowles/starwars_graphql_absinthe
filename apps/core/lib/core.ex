@@ -50,6 +50,12 @@ defmodule Core do
   end
 
   @doc """
+  Returns a starship from Star Wars.
+  """
+  @spec starship_by_id(String.t()) :: map() | nil
+  def starship_by_id(id), do: Repo.starship_by_id(id)
+
+  @doc """
   Return a batch of Star Wars Characters.
 
   Given a list of IDs, returns a list of Characters that match.
